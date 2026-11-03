@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Moonlight</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #080d20;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 20px 6%;
+  background: #0c1228;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid #29385f;
+}
+
+.logo {
+  color: #a9baff;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 7px;
+}
+
+nav a:hover {
+  color: #a9baff;
+}
+
+button, .btn {
+  background: #7188d8;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover, .btn:hover {
+  background: #91a5ff;
+}
+
+.hero {
+  min-height: 480px;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle, #26386c, #080d20 75%);
+}
+
+.moon {
+  font-size: 90px;
+  animation: float 4s infinite ease-in-out;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 8vw, 60px);
+  margin: 20px;
+}
+
+.hero h1 span {
+  color: #a9baff;
+}
+
+.hero p {
+  color: #c3cce5;
+  line-height: 1.8;
+  max-width: 450px;
+  margin-bottom: 20px;
+}
+
+section {
+  padding: 60px 7%;
+}
+
+h2 {
+  text-align: center;
+  color: #a9baff;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #121b36;
+  border: 1px solid #29385f;
+  border-radius: 18px;
+  padding: 25px;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #a9baff;
+}
+
+.card h3 {
+  color: #b5c4ff;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #c3cce5;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.delete {
+  margin-top: 20px;
+  background: #a94359;
+}
+
+.admin {
+  background: #101831;
+  display: none;
+}
+
+.admin.show {
+  display: block;
+}
+
+.admin form, .login-form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-box {
+  max-width: 500px;
+  margin: auto;
+  background: #121b36;
+  padding: 25px;
+  border: 1px solid #52658f;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.login-box h3 {
+  color: #a9baff;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  width: 100%;
+}
+
+#adminContent {
+  display: none;
+}
+
+#adminContent.show {
+  display: block;
+}
+
+.logout {
+  background: #a94359;
+  margin-bottom: 25px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #52658f;
+  background: #080d20;
+  color: white;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.about {
+  text-align: center;
+  background: #101831;
+}
+
+.about p {
+  color: #c3cce5;
+  line-height: 1.9;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #9aa8ca;
+}
+
+@keyframes float {
+  50% { transform: translateY(-15px); }
+}
+
+@media(max-width: 480px) {
+  header { justify-content: center; }
+  nav { text-align: center; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">☾ Under Moonlight</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#blog">Blog</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <button id="adminToggle">Admin Login 🔐</button>
+</header>
+
+<div class="hero" id="home">
+  <div class="moon">🌙</div>
+  <h1>Welcome to <span>My World</span></h1>
+  <p>
+    A peaceful place for thoughts, dreams,
+    stories and creativity.
+  </p>
+  <a href="#blog" class="btn">Explore My Blog ✨</a>
+</div>
+
+<section id="blog">
+  <h2>My Latest Stories</h2>
+  <div class="cards" id="articles"></div>
+</section>
+
+<section class="admin" id="admin">
+  <h2>🌙 Admin Panel</h2>
+
+  <div class="login-box" id="loginBox">
+    <h3>Welcome Admin 🔐</h3>
+
+    <form class="login-form" id="loginForm">
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
+
+      <button type="submit">Login ✨</button>
+      <p id="loginMessage"></p>
+    </form>
+  </div>
+
+  <div id="adminContent">
+    <button class="logout" id="logoutBtn">
+      Logout 🚪
+    </button>
+
+    <form id="articleForm">
+      <input
+        id="title"
+        placeholder="Article title"
+        required
+        maxlength="80"
+      >
+
+      <textarea
+        id="description"
+        placeholder="Write your article..."
+        required
+        maxlength="3000"
+      ></textarea>
+
+      <input
+        id="image"
+        type="url"
+        placeholder="Image URL (optional)"
+      >
+
+      <button type="submit">
+        Publish Article ✨
+      </button>
+    </form>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <h2>About Me</h2>
+  <p>
+    Welcome to my personal world.
+    Here I share my thoughts, dreams and creativity.
+  </p>
+</section>
+
+<footer>
+  © 2026 Under Moonlight 🌙
+</footer>
+
+<script>
+
+// DEMO PASSWORD - CHANGE THIS VALUE
+const ADMIN_PASSWORD = "Moon2026keb";
+
+let isAdmin = false;
+
+const form = document.getElementById("articleForm");
+const articlesBox = document.getElementById("articles");
+const admin = document.getElementById("admin");
+const loginBox = document.getElementById("loginBox");
+const adminContent = document.getElementById("adminContent");
+
+let articles = [];
+
+try {
+  articles = JSON.parse(
+    localStorage.getItem("moonArticles") || "[]"
+  );
+
+  if (!Array.isArray(articles)) articles = [];
+} catch {
+  articles = [];
+}
+
+function saveArticles() {
+  localStorage.setItem(
+    "moonArticles",
+    JSON.stringify(articles)
+  );
+}
+
+function renderArticles() {
+  articlesBox.replaceChildren();
+
+  if (articles.length === 0) {
+    const message = document.createElement("p");
+    message.textContent =
+      "No articles yet. Add your first story!";
+    articlesBox.appendChild(message);
+    return;
+  }
+
+  articles.forEach((article, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    if (article.image) {
+      const img = document.createElement("img");
+      img.src = article.image;
+      img.alt = article.title;
+      img.loading = "lazy";
+      img.onerror = () => img.remove();
+      card.appendChild(img);
+    }
+
+    const heading = document.createElement("h3");
+    heading.textContent = "🌙 " + article.title;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = article.description;
+
+    card.append(heading, paragraph);
+
+    if (isAdmin) {
+      const remove = document.createElement("button");
+
+      remove.textContent = "Delete 🗑️";
+      remove.className = "delete";
+
+      remove.addEventListener("click", () => {
+        if (confirm("Delete this article?")) {
+          articles.splice(index, 1);
+          saveArticles();
+          renderArticles();
+        }
+      });
+
+      card.appendChild(remove);
+    }
+
+    articlesBox.appendChild(card);
+  });
+}
+
+// ADMIN LOGIN
+
+document.getElementById("loginForm")
+.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const enteredPassword =
+    document.getElementById("password").value;
+
+  if (enteredPassword === ADMIN_PASSWORD) {
+    isAdmin = true;
+
+    loginBox.style.display = "none";
+    adminContent.classList.add("show");
+
+    const loginMessage = document.getElementById("loginMessage");
+    loginMessage.textContent = "";
+
+    document.getElementById("adminToggle").textContent =
+      "Admin Panel ⚙️";
+
+    renderArticles();
+
+    alert("Welcome Admin! 🌙");
+
+  } else {
+    const loginMessage = document.getElementById("loginMessage");
+    loginMessage.textContent = "Incorrect password! Try again.";
+    loginMessage.style.color = "#ff8299";
+  }
+});
+
+// LOGOUT
+
+document.getElementById("logoutBtn")
+.addEventListener("click", () => {
+  isAdmin = false;
+
+  adminContent.classList.remove("show");
+  loginBox.style.display = "block";
+
+  document.getElementById("password").value = "";
+  const loginMessage = document.getElementById("loginMessage");
+  loginMessage.textContent = "";
+
+  document.getElementById("adminToggle").textContent =
+    "Admin Login 🔐";
+
+  renderArticles();
+
+  alert("You have logged out!");
+});
+
+// PUBLISH ARTICLE
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!isAdmin) return;
+
+  const title =
+    document.getElementById("title").value.trim();
+
+  const description =
+    document.getElementById("description").value.trim();
+
+  const image =
+    document.getElementById("image").value.trim();
+
+  if (!title || !description) return;
+
+  articles.unshift({
+    title,
+    description,
+    image
+  });
+
+  saveArticles();
+  renderArticles();
+  form.reset();
+
+  alert("Your article has been published!");
+});
+
+// OPEN ADMIN PANEL
+
+document.getElementById("adminToggle")
+.addEventListener("click", () => {
+
+  admin.classList.toggle("show");
+
+  if (admin.classList.contains("show")) {
+    admin.scrollIntoView({ behavior: "smooth" });
+  }
+
+});
+
+// INITIALIZE
+
+renderArticles();
+
+</script>
+
+</body>
+</html>
